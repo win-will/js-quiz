@@ -13,11 +13,13 @@ var answer4 = document.getElementById('answer4');
 var result = document.getElementById('result');
 var allDone = document.getElementById('alldone');
 var finalScore = document.getElementById('finalscore');
-var initialForm = document.getElementById('getinitials');
+
 var getInitials = document.getElementById('initials');
 var scoreTitle = document.getElementById('scoretitle');
 var scoreButtons = document.getElementById('scorebuttons');
 
+var getInitials = document.getElementById('initials');
+var initialForm = document.getElementById('getinitials');
 var initialsButton = document.getElementById('submitinitials');
 
 var gobackButton = document.getElementById('goback');
@@ -31,11 +33,11 @@ var viewHighscores = document.getElementById('viewhighscores');
 //initialize local storage for highscores
 // localStorage.setItem("highScores", JSON.stringify([]));
 
-
 var qaIndex = 0;
 var currentScore = 0;
-var timeLeft = 60;
+var timeLeft = 75;
 var arrayQAs = generateQAs();
+var resultTimer = 1;
 
 // console.log(answers.children[0].children[0]);
 
@@ -98,12 +100,14 @@ for (let i = 0; i < 4; i++ ){
     if (qaIndex < 5) {
       
       displayQAs();
+      clearResult();
       
       
     } else {
       //display get initials screen
       qaIndex = 0;
       displayScore();
+      clearResult();
     }  
     
   });
@@ -185,7 +189,7 @@ function displayScore() {
   //hide questions and answers
   questions.setAttribute("style", "display:none;");
   answers.setAttribute("style", "display:none;");
-  result.setAttribute("style", "display:none;");
+  
 
   //display screen to get intials and show score
   allDone.setAttribute("style", "display:block;");
@@ -262,7 +266,7 @@ function generateQAs () {
 function storeScores () {
   scoreArray = [];
   var recordScore = {
-    initials: initials.value,
+    initials: getInitials.value,
     score: currentScore
   };
 
@@ -283,7 +287,6 @@ function storeScores () {
 }
 
 function displayHighscores () {
-  // var scores = JSON.parse(localStorage.getItem("highScores"));
 
   //display screen to get intials and show score
   allDone.setAttribute("style", "display:none;");
@@ -325,3 +328,21 @@ function createScorelist (){
   
 }
 
+
+function clearResult() {
+
+  var id = setInterval(function () {
+    // As long as the `timeLeft` is greater than 1
+    if (resultTimer > 0) {
+      resultTimer--;
+    
+    } 
+    else {
+      result.setAttribute("style", "display:none;");
+      clearInterval(id);
+      resultTimer = 1;
+
+    }
+  
+  }, 1000);
+}

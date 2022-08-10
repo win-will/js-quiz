@@ -1,32 +1,28 @@
 * {
-  /* box-sizing: border-box; */
-  /* display: none; */
+  font-size: 14px;
+  font-family: "Roboto", sans-serif;
 }
 
 body {
   display: flex;
   flex-direction: column;
-  font-size: 14px;
-  font-family: "Roboto", sans-serif;
   background-color: white;
   align-content: center;
   max-width: 700px; 
-  /* width: fit-content; */
+  width: auto;
+  margin: auto;
 }
 
 h1 {
   display: block;
   font-size: 24pt;
   text-align: center;
-  /* margin: 0px;
-  margin-top: 0.45em;
-  margin-bottom: 0.45em; */
 }
 
 a {
   text-decoration: none;
-
 }
+
 li {
   padding: 5px;
   margin-top: 2px;
@@ -34,34 +30,48 @@ li {
   list-style-type: none;
   border-radius: 8px;
   background-color: rgb(225, 183, 225);
-  /* width: U; */
-}
 
+}
 
 .directions{
   display: block;
   text-align: center;
-
 }
 
 .top-header{
-  display: inline-block;
-  /* width: fit-content; */
-  width:auto;
+  display: flex 0 0 200px;  
   flex-direction: row;
+  margin-right: 10px;
+  margin-left: 10px;
+  width: auto;
 }
+
 .highscores{
   text-decoration: none;
   position: relative;
   top: 5px;
-  left:10px;
+  left:-0%;
 }
 
 .timer-box{
   position: relative;
-  top: -25px;
-  left: 100%;
+  top: -26px;
+  left: 90%;
 }
+
+#viewhighscores{
+  font-family: 'Calibri';
+  font-size: 12px;
+}
+
+#time{
+  font-family: 'Calibri';
+  font-size: 12px;
+  
+  /* min-width: 275px; */
+}
+
+
 
 button {
   display: block;
@@ -101,7 +111,6 @@ label {
   display: block;
   margin-left: auto;
   margin-right: auto;
-
   max-width: 500px;
   /* background-color: #fff; */
   /* border: 1px solid #eceff1; */
@@ -152,51 +161,46 @@ label {
   border-top: 2px;
   width: 300px;
   border-style: solid none none none;
+  border-color: grey;
+  font-style: italic;
+  color: grey;
 } 
-
 
 button:hover {
   filter: brightness(120%);
 
 }
 
+#alldone {
+  display: none;
+}
+
+#finalscore {
+  display: none;
+}
+
+#getinitials {
+  display: none;
+}
 
 #alldone {
   display: none;
 }
 
 #finalscore {
-
   display: none;
 }
 
 #getinitials {
-
-  display: none;
-}
-
-#alldone {
-  display: none;
-}
-
-#finalscore {
-
-  display: none;
-}
-
-#getinitials {
-
   display: none;
 }
 
 #scoretitle {
   display: none;
-
 }
 
 #scorebuttons {
   display: none;
-
 }
 
 #goback {
@@ -209,5 +213,4 @@ button:hover {
 
 #submitinitials {
   display: inline-block;
-
 }

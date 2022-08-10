@@ -7,45 +7,42 @@
     <link rel="stylesheet" href="./assets/css/style.css" />
     <title>JavaScript Coding Quiz</title>
   </head>
-
+  <header class="top-header">
+    <div class="highscores">
+        <a href="#" id="viewhighscores">View Highscores</a>
+    </div>
+    <div class="timer-box">
+        <p><span class="timer" id="time">Time: 0</span></p>
+    </div>
+  </header>
   <body>
-    <header class="top-header">
-        <div class="highscores">
-            <a href="#" id="viewhighscores">View Highscores</a>
-        </div>
-        <div class="timer-box">
-            <p><span class="timer" id="time">Time: 0</span></p>
-        </div>
-      </header>
       <div class="card">
         <h1 id="title">Coding Quiz Challenge</h1>
-            <p>
-                <span class="directions" id="instructions">Try to answer the following code-related questions within the time limit.  
-                    Keep in mind that incorrect answers will penalize your score/time by ten seconds!
-                </span>
-                <h2 id="questions"></h2>
-                <span id="answers">
-                    <button id="answer1"></button>
-                    <button id="answer2"></button>
-                    <button id="answer3"></button>
-                    <button id="answer4"></button>
-                </span>
-                <span id="result"></span>
-                <h2 id="alldone">All done!</h2>
-                <span id="finalscore"></span>
-                <form id="getinitials">
-                  <label for="initials">Enter initials: </label>
-                  <input type="text" id="initials" name="initials">
-                  <button name="submitinitials" id="submitinitials">Submit</button>
-                  <!-- <input type="submit" value="Submit"> -->
-                </form>
-                <h2 id="scoretitle">Highscores</h2>
-                <ul id="scorelist"></ul>
-                <div id="scorebuttons">
-                  <button id="goback">Go Back</button>
-                  <button id="clear">Clear Scores</button>
-                </div>
-            </p>
+        <span class="directions" id="instructions">Try to answer the following code-related questions within the time limit.  
+            Keep in mind that incorrect answers will penalize your score/time by ten seconds!
+        </span>
+        <h2 id="questions"></h2>
+        <div id="answers">
+            <button id="answer1"></button>
+            <button id="answer2"></button>
+            <button id="answer3"></button>
+            <button id="answer4"></button>
+        </div>
+        <h2 id="alldone">All done!</h2>
+        <span id="finalscore"></span>
+        <form id="getinitials">
+          <label for="initials">Enter initials: </label>
+          <input type="text" id="initials" name="initials">
+          <button name="submitinitials" id="submitinitials">Submit</button>
+          <!-- <input type="submit" value="Submit"> -->
+        </form>
+        <h2 id="scoretitle">Highscores</h2>
+        <ul id="scorelist"></ul>
+        <div id="scorebuttons">
+          <button id="goback">Go Back</button>
+          <button id="clear">Clear Scores</button>
+        </div>
+        <span id="result"></span>
         <button id="startButton">Start Quiz</button>
       </div>
     <script src="./assets/js/script.js"></script>
