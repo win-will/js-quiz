@@ -11,7 +11,7 @@
   <body>
     <header class="top-header">
         <div class="highscores">
-            <a href="#">View Highscores</a>
+            <a href="#" id="viewhighscores">View Highscores</a>
         </div>
         <div class="timer-box">
             <p><span class="timer" id="time">Time: 0</span></p>
@@ -25,11 +25,26 @@
                 </span>
                 <h2 id="questions"></h2>
                 <span id="answers">
-                    <ul><button id="answer1"></button></ul>
-                    <ul><button id="answer2"></button></ul>
-                    <ul><button id="answer3"></button></ul>
-                    <ul><button id="answer4"></button></ul>
+                    <button id="answer1"></button>
+                    <button id="answer2"></button>
+                    <button id="answer3"></button>
+                    <button id="answer4"></button>
                 </span>
+                <span id="result"></span>
+                <h2 id="alldone">All done!</h2>
+                <span id="finalscore"></span>
+                <form id="getinitials">
+                  <label for="initials">Enter initials: </label>
+                  <input type="text" id="initials" name="initials">
+                  <button name="submitinitials" id="submitinitials">Submit</button>
+                  <!-- <input type="submit" value="Submit"> -->
+                </form>
+                <h2 id="scoretitle">Highscores</h2>
+                <ul id="scorelist"></ul>
+                <div id="scorebuttons">
+                  <button id="goback">Go Back</button>
+                  <button id="clear">Clear Scores</button>
+                </div>
             </p>
         <button id="startButton">Start Quiz</button>
       </div>

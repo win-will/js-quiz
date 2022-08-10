@@ -3,25 +3,48 @@ var startButton = document.getElementById('startButton');
 var h1 = document.getElementById('title');
 var instructions = document.getElementById('instructions');
 var questions = document.getElementById('questions');
+
 var answers = document.getElementById('answers');
 var answer1 = document.getElementById('answer1');
 var answer2 = document.getElementById('answer2');
 var answer3 = document.getElementById('answer3');
 var answer4 = document.getElementById('answer4');
 
+var result = document.getElementById('result');
+var allDone = document.getElementById('alldone');
+var finalScore = document.getElementById('finalscore');
+var initialForm = document.getElementById('getinitials');
+var getInitials = document.getElementById('initials');
+var scoreTitle = document.getElementById('scoretitle');
+var scoreButtons = document.getElementById('scorebuttons');
 
-// storeQAs();
-startButton.addEventListener("click", startQuiz);
+var initialsButton = document.getElementById('submitinitials');
 
-// function testClick() {
-//   timerEl.textContent = "Timer: Started";
-// }
+var gobackButton = document.getElementById('goback');
+var clearButton = document.getElementById('clear');
 
-function startQuiz() {
+var scoreList = document.getElementById('scorelist');
+
+var viewHighscores = document.getElementById('viewhighscores');
+
+
+//initialize local storage for highscores
+// localStorage.setItem("highScores", JSON.stringify([]));
+
+
+var qaIndex = 0;
+var currentScore = 0;
+var timeLeft = 60;
+var arrayQAs = generateQAs();
+
+// console.log(answers.children[0].children[0]);
+
+startButton.addEventListener("click", function (event) {
   // event.preventDefault();
-  // event.stopPropagation();
-  var timeLeft = 15;
-  startButton.removeEventListener('click', startQuiz);
+  event.stopPropagation();
+  var style;
+  
+  // startButton.removeEventListener('click', startQuiz);
   
   // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
   var timeInterval = setInterval(function () {
@@ -38,7 +61,14 @@ function startQuiz() {
       
       // Use `clearInterval()` to stop the timer
       clearInterval(timeInterval);
-      startButton.addEventListener("click", startQuiz);
+      // startButton.addEventListener("click", startQuiz);
+      
+      style = getComputedStyle(questions);
+      console.log(style.display);
+      if (style.display === "none") {
+        displayHighscores();
+      }
+
     }
   }, 1000);
 
@@ -46,20 +76,146 @@ function startQuiz() {
   instructions.setAttribute("style", "display:none;");
   h1.setAttribute("style", "display:none;");
   startButton.setAttribute("style", "display:none;");
+
   questions.setAttribute("style", "display:block;");
   answers.setAttribute("style", "display:block;");
+  displayQAs();
+
+  // qaIndex++;
+
+});
+
+for (let i = 0; i < 4; i++ ){
+
+  
+  answers.children[i].addEventListener("click", function (event) {
+    event.stopPropagation();
+    isCorrect(i, arrayQAs[qaIndex].correctNum);
+    qaIndex++;
+
+    if (qaIndex < 5) {
+      
+      displayQAs();
+      
+      
+    } else {
+      //display get initials screen
+      qaIndex = 0;
+      displayScore();
+    }  
+    
+  });
+
+}
+
+initialsButton.addEventListener('click', submitInitials);
+
+function submitInitials(event) {
+  event.stopPropagation();
+  event.preventDefault();
+  storeScores();
+  displayHighscores();
+}
+
+gobackButton.addEventListener('click', restartGame);
+
+function restartGame(event) {
+  event.stopPropagation();
+  event.preventDefault();
+
+  allDone.setAttribute("style", "display:none;");
+  finalScore.setAttribute("style", "display:none;");
+  initialForm.setAttribute("style", "display:none;");
+  questions.setAttribute("style", "display:none;");
+  answers.setAttribute("style", "display:none;");
+  result.setAttribute("style", "display:none;");
+  scoreTitle.setAttribute("style", "display:none;");
+  scoreButtons.setAttribute("style", "display:none;");
+  // instructions.setAttribute("style", "display:none;");
+  // h1.setAttribute("style", "display:none;");
+  // startButton.setAttribute("style", "display:none;");
+
+  instructions.setAttribute("style", "display:block;");
+  h1.setAttribute("style", "display:block;");
+  startButton.setAttribute("style", "display:block;");
+
+  while (scoreList.hasChildNodes()){
+    scoreList.removeChild(scoreList.firstChild);
+  }
+
+  currentScore = 0;
+  timeLeft = 60;
+  qaIndex = 0;
+}
+
+clearButton.addEventListener('click', clearScores);
+
+function clearScores(event) {
+  event.stopPropagation();
+  event.preventDefault();
+
+  while (scoreList.hasChildNodes()){
+    scoreList.removeChild(scoreList.firstChild);
+  }
+  localStorage.setItem("highScores", JSON.stringify([]));
+  
+}
+
+viewHighscores.addEventListener('click', displayHighscores);
 
 
-  var arrayQAs = generateQAs();
-  questions.textContent = arrayQAs[0].question;
-  // answers.innerHTML = "<ul>" + arrayQAs[0].answers[0] + "</ul>" +
-  //                     "<ul>" + arrayQAs[0].answers[1] + "</ul>" +
-  //                     "<ul>" + arrayQAs[0].answers[2] + "</ul>" +
-  //                     "<ul>" + arrayQAs[0].answers[3] + "</ul>";
-  answer1.textContent = arrayQAs[0].answers[0];
-  answer2.textContent = arrayQAs[0].answers[1];
-  answer3.textContent = arrayQAs[0].answers[2];
-  answer4.textContent = arrayQAs[0].answers[3];
+function displayQAs() {
+
+  questions.textContent = arrayQAs[qaIndex].question;
+  
+  answer1.textContent = arrayQAs[qaIndex].answers[0];
+  answer2.textContent = arrayQAs[qaIndex].answers[1];
+  answer3.textContent = arrayQAs[qaIndex].answers[2];
+  answer4.textContent = arrayQAs[qaIndex].answers[3];
+
+}
+
+
+
+function displayScore() {
+  timeLeft = 0;
+
+  //hide questions and answers
+  questions.setAttribute("style", "display:none;");
+  answers.setAttribute("style", "display:none;");
+  result.setAttribute("style", "display:none;");
+
+  //display screen to get intials and show score
+  allDone.setAttribute("style", "display:block;");
+  allDone.textContent = "All done!"
+  finalScore.setAttribute("style", "display:block;");
+  finalScore.textContent = "Your final score is: " + currentScore;
+  initialForm.setAttribute("style", "display:block;");
+
+}
+
+function isCorrect(num, correctNum){
+
+  // console.log((num + 1) + " --- " + correctNum);
+
+  if ((num + 1) === correctNum){
+    result.setAttribute("style", "display:block;");
+    result.textContent = "Correct";
+    currentScore+= 11;
+    return true;
+  }
+  else {
+    result.setAttribute("style", "display:block;");
+    result.textContent = "Wrong";
+     if (timeLeft > 10) {
+        timeLeft-=10
+     }
+     else {
+      timeLeft = 0;
+     }
+
+    return false;
+  }
 
 }
 
@@ -85,7 +241,7 @@ function generateQAs () {
   arrayQAs.push ({
     question: "Sting values must be enclosed within ____ when being assigned in variables.",
     answers: ["1. commas", "2. curly brackets", "3. quotes", "4. parentheses"],
-    correctNum: 4  
+    correctNum: 3  
   });
   arrayQAs.push ({
     question: "A very useful tool during development and debugging for printing content to the debugger is:",
@@ -101,59 +257,69 @@ function generateQAs () {
   
 }
 
-function storeScores (initials, score) {
+function storeScores () {
+  scoreArray = [];
   var recordScore = {
-    initials: initials,
-    score: score
+    initials: initials.value,
+    score: currentScore
   };
-  
-  localStorage.setItem("highScores", JSON.stringify(recordScore));
+
+  // console.log(recordScore);
+
+  if (localStorage.getItem("highScores")) {
+    scoreArray = scoreArray.concat(JSON.parse(localStorage.getItem("highScores")));
+    scoreArray.push(recordScore);
+    localStorage.setItem("highScores", JSON.stringify(scoreArray));
+    console.log("has-items: " + scoreArray);
+  }
+  else {
+    scoreArray.push(recordScore);
+    localStorage.setItem("highScores", JSON.stringify(scoreArray));
+    console.log("empty: " + scoreArray);
+  }
+  console.log(scoreArray);
+}
+
+function displayHighscores () {
+  // var scores = JSON.parse(localStorage.getItem("highScores"));
+
+  //display screen to get intials and show score
+  allDone.setAttribute("style", "display:none;");
+  finalScore.setAttribute("style", "display:none;");
+  initialForm.setAttribute("style", "display:none;");
+  questions.setAttribute("style", "display:none;");
+  answers.setAttribute("style", "display:none;");
+  result.setAttribute("style", "display:none;");
+  instructions.setAttribute("style", "display:none;");
+  h1.setAttribute("style", "display:none;");
+  startButton.setAttribute("style", "display:none;");
+
+  timeLeft = 0;
+
+  // Show High score screen;
+  scoreTitle.setAttribute("style", "display:block;");
+  scoreButtons.setAttribute("style", "display:inline-block;");
+  scoreList.setAttribute("style", "display:block;");
+  createScorelist();
 
 }
 
+function createScorelist (){
+  // var li = document.createElement("li");
+  var highScoresArray = JSON.parse(localStorage.getItem("highScores"));
+  
+  while (scoreList.hasChildNodes()){
+    scoreList.removeChild(scoreList.firstChild);
+  }
+  
+  console.log("createlist " + highScoresArray);
+  console.log("length" + highScoresArray.length);
 
-// var emailInput = document.querySelector("#email");
-// var passwordInput = document.querySelector("#password");
-// var signUpButton = document.querySelector("#start");
-// var msgDiv = document.querySelector("#msg");
-// var userEmailSpan = document.querySelector("#user-email");
-// var userPasswordSpan = document.querySelector("#user-password");
+  for (let i=0; i < highScoresArray.length; i++){
+    li = document.createElement("li");
+    li.appendChild(document.createTextNode(highScoresArray[i].initials + " - " + highScoresArray[i].score));
+    scoreList.appendChild(li);
+  }
+  
+}
 
-
-// renderLastRegistered();
-
-// function displayMessage(type, message) {
-//   msgDiv.textContent = message;
-//   msgDiv.setAttribute("class", type);
-// }
-
-// function renderLastRegistered() {
-//   var email = localStorage.getItem("email");
-//   var password = localStorage.getItem("password");
-
-//   if (!email || !password) {
-//     return;
-//   }
-
-//   userEmailSpan.textContent = email;
-//   userPasswordSpan.textContent = password;
-// }
-
-// signUpButton.addEventListener("click", function(event) {
-//   event.preventDefault();
-
-//   var email = document.querySelector("#email").value;
-//   var password = document.querySelector("#password").value;
-
-//   if (email === "") {
-//     displayMessage("error", "Email cannot be blank");
-//   } else if (password === "") {
-//     displayMessage("error", "Password cannot be blank");
-//   } else {
-//     displayMessage("success", "Registered successfully");
-
-//     localStorage.setItem("email", email);
-//     localStorage.setItem("password", password);
-//     renderLastRegistered();
-//   }
-// });
