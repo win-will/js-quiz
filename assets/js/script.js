@@ -62,12 +62,18 @@ startButton.addEventListener("click", function (event) {
       // Use `clearInterval()` to stop the timer
       clearInterval(timeInterval);
       // startButton.addEventListener("click", startQuiz);
-      
-      style = getComputedStyle(questions);
+      // displayScore();
+
+      style = getComputedStyle(viewHighscores);
       console.log(style.display);
       if (style.display === "none") {
-        displayHighscores();
+        displayScore();
       }
+      //   displayScore();
+      // }
+      // else {
+      //   displayHighscores();
+      // }
 
     }
   }, 1000);
