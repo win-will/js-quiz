@@ -64,18 +64,14 @@ startButton.addEventListener("click", function (event) {
       // startButton.addEventListener("click", startQuiz);
       // displayScore();
 
-      style = getComputedStyle(viewHighscores);
-      console.log(style.display);
+      style = getComputedStyle(scoreTitle);
+      // console.log(style.display);
       if (style.display === "none") {
         displayScore();
       }
-      //   displayScore();
-      // }
-      // else {
-      //   displayHighscores();
-      // }
 
     }
+
   }, 1000);
 
   
