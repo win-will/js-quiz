@@ -1,27 +1,16 @@
+
+//time element for quiz
 var timerEl = document.getElementById('time');
-// var startButton = document.getElementById('startButton');
-
+//center column that changes, traversing DOM to change views
+var cardEl = document.getElementById('card');
+//used to display result of answer
 var result = document.getElementById('result');
-var finalScore = document.getElementById('finalscore');
-
-var getInitials = document.getElementById('initials');
-var scoreButtons = document.getElementById('scorebuttons');
-
-var getInitials = document.getElementById('initials');
-var initialsButton = document.getElementById('submitinitials');
-
-var gobackButton = document.getElementById('goback');
-var clearButton = document.getElementById('clear');
-
-var scoreList = document.getElementById('scorelist');
-
+//used to switch to high scores at anytime
 var viewHighscores = document.getElementById('viewhighscores');
 
-var cardEl = document.getElementById('card');
-
 var qaIndex = 0;
-var currentScore = 0;
 var timeLeft = 75;
+var  currentScore = timeLeft;
 var arrayQAs = generateQAs();
 var resultTimer = 1;
 
@@ -37,20 +26,19 @@ cardEl.children[0].children[2].addEventListener("click", function (event) {
       // Set the `textContent` of `timerEl` to show the remaining seconds
       timerEl.textContent = "Time: " + timeLeft;
       // Decrement `timeLeft` by 1
+      currentScore = timeLeft;
       timeLeft--;
     
     } else {
       // Once `timeLeft` gets to 0, set `timerEl` to an empty string
+      var style = getComputedStyle(cardEl.children[1]);
       timerEl.textContent = "Time: " + timeLeft;
       
-      // Use `clearInterval()` to stop the timer
-      clearInterval(timeInterval);
-
-      var style = getComputedStyle(cardEl.children[1]);
-      // console.log(style.display);
       if (style.display === "block") {
         displayScore();
       }
+      // Use `clearInterval()` to stop the timer
+      clearInterval(timeInterval);
 
     }
 
@@ -85,7 +73,7 @@ for (let i = 0; i < 4; i++ ){
 
 }
 
-//Enter initials, store them, and show highscores
+//Enter initials button, store them, and show highscores
 cardEl.children[2].children[2].children[2].addEventListener('click', function (event) {
   event.stopPropagation();
   event.preventDefault();
@@ -93,8 +81,7 @@ cardEl.children[2].children[2].children[2].addEventListener('click', function (e
   displayHighscores();
 });
 
-
-//Go back
+//Go back button
 cardEl.children[3].children[2].children[0].addEventListener('click', function (event) {
 
   event.stopPropagation();
@@ -102,17 +89,12 @@ cardEl.children[3].children[2].children[0].addEventListener('click', function (e
   cardEl.children[0].setAttribute("style", "display:block;");
   cardEl.children[3].setAttribute("style", "display:none;");
 
-  // while (scoreList.hasChildNodes()){
-  //   scoreList.removeChild(scoreList.firstChild);
-  // }
-
   //reset score, timer; question and answer index
-  currentScore = 0;
   timeLeft = 75;
+  currentScore = timeLeft;
   qaIndex = 0;
 
 });
-
 
 //Clear button
 cardEl.children[3].children[2].children[1].addEventListener('click', function (event) {
@@ -121,15 +103,14 @@ cardEl.children[3].children[2].children[1].addEventListener('click', function (e
   event.preventDefault();
 
   //Remove high score list items
-  while (scoreList.hasChildNodes()){
-    scoreList.removeChild(scoreList.firstChild);
+  while (cardEl.children[3].children[1].hasChildNodes()){
+    cardEl.children[3].children[1].removeChild(cardEl.children[3].children[1].firstChild);
   }
 
   //Reset high scores in local storage
   localStorage.setItem("highScores", JSON.stringify([]));
   
 });
-
 
 //Link at the top of page
 viewHighscores.addEventListener('click', displayHighscores);
@@ -158,7 +139,7 @@ function displayScore() {
   
   //display screen to get intials and show score
   cardEl.children[2].setAttribute("style", "display:block;");
-  finalScore.textContent = "Your final score is: " + currentScore;
+  cardEl.children[2].children[1].textContent = "Your final score is: " + currentScore;
 
 }
 
@@ -166,12 +147,10 @@ function displayScore() {
 function isCorrect(num, correctNum){
 
   if ((num + 1) === correctNum){
-    
     cardEl.children[4].textContent = "Correct!";
-    currentScore+= 11;
+  
   }
   else {
-    
     cardEl.children[4].textContent = "Wrong!";
 
      if (timeLeft > 10) {
@@ -224,11 +203,11 @@ function generateQAs () {
 function storeScores () {
 
   //Check that there was a value provided by the user
-  if (getInitials.value) {
+  if (cardEl.children[2].children[2].children[1].value) {
     
     scoreArray = [];
     var recordScore = {
-      initials: getInitials.value,
+      initials: cardEl.children[2].children[2].children[1].value,
       score: currentScore
     };
   
@@ -274,12 +253,11 @@ function displayHighscores () {
 
 //Generate score list for highscores page
 function createScorelist (){
-  // var li = document.createElement("li");
   var highScoresArray = JSON.parse(localStorage.getItem("highScores"));
   
   //Remove the list in DOM
   while (cardEl.children[3].children[1].hasChildNodes()){
-    cardEl.children[3].children[1].removeChild(scoreList.firstChild);
+    cardEl.children[3].children[1].removeChild(cardEl.children[3].children[1].firstChild);
   }
 
   //Re-create it to using the highscores in the local storage to prevent duplication
