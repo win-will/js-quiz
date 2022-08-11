@@ -4,19 +4,49 @@
 }
 
 body {
-  display: flex;
-  flex-direction: column;
   background-color: white;
-  align-content: center;
-  max-width: 700px; 
-  width: auto;
-  margin: auto;
 }
 
+/* Create a row with three columns */
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  width: 100%;
+}
+
+.column1 {
+  flex: 15%;
+  flex-shrink: 0;
+  flex-wrap: nowrap;
+  min-width: 100px;
+}
+.column2 {
+  flex: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  flex-wrap: nowrap;
+  max-width: 500px;
+}
+
+.column3{
+  flex: 15%;
+  flex-shrink: 0;
+  flex-wrap: nowrap;
+  min-width: 50px;
+}
+
+/* Default settings for elements */
 h1 {
-  display: block;
   font-size: 24pt;
   text-align: center;
+  margin-top: 100px;
+}
+
+h2 {
+  font-size: 16pt;
+  text-align: left;
+  margin-top: 100px;
 }
 
 a {
@@ -28,133 +58,52 @@ li {
   margin-top: 2px;
   margin-left: -40px;
   list-style-type: none;
-  border-radius: 8px;
   background-color: rgb(225, 183, 225);
-
+  width: 400px;
 }
 
-.directions{
-  display: block;
-  text-align: center;
-}
-
-.top-header{
-  display: flex 0 0 200px;  
-  flex-direction: row;
-  margin-right: 10px;
-  margin-left: 10px;
-  width: auto;
-}
-
-.highscores{
-  text-decoration: none;
-  position: relative;
-  top: 5px;
-  left:-0%;
-}
-
-.timer-box{
-  position: relative;
-  top: -26px;
-  left: 90%;
-}
-
+/* Headers Highscores and Timer */
 #viewhighscores{
   font-family: 'Calibri';
   font-size: 12px;
+  margin-left: 5px;
 }
 
 #time{
   font-family: 'Calibri';
   font-size: 12px;
-  
-  /* min-width: 275px; */
+  float: right;
+  margin-right: 5px;
 }
 
-
-
+/* Style buttons and create hover action */
 button {
   display: block;
   background-color: purple;
   border-radius: 8px;
+  border: none;
   color: white;
   cursor: pointer;
   font-size: 10pt;
   margin-left: auto;
   margin-right: auto;
-  /* letter-spacing: 0.21px;
-  line-height: 8px; */
-  /* max-width: 100px; */
   width: fit-content;
   height: 25px;
-  /* padding: 20px 52px; */
   text-align: center;
-  /* transition-duration: 0.15s;
-  transition-property: background-color;
-  transition-timing-function: linear; */
-  /* margin-top: 0.6em; */
-  /* float: center; */
 }
 
-.input-group {
-  margin-top: 10px;
-  margin-bottom: 10px;
+button:hover {
+  filter: brightness(120%);
 }
 
-label {
-  color: #212121;
+#startButton {
+  margin-top: 20px;
+}
+#submitinitials {
+  margin-top: 20px;
 }
 
-
-
-.card {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 500px;
-  /* background-color: #fff; */
-  /* border: 1px solid #eceff1; */
-  /* border-radius: 8px; */
-  /* box-shadow: rgba(60, 64, 67, 0.3) 0 1px 2px 0,
-    rgba(60, 64, 67, 0.15) 0 1px 3px 1px; */
-  /* margin: 2%; */
-  /* margin-top: 80px; */
-  /* padding: 20px; */
-  /* width: 46%; */
-  /* overflow: hidden;
-  position: relative;
-  float: left; */
-  /* align-content: center; */
-
-}
-
-#questions {
-  display: none;
-}
-#answers {
-  display: none;
-  margin-left: 0px;
-  border: none;
-}
-#answer1 {
-  margin-left: 0px;
-  margin-bottom: 2px;
-  border: none;
-}
-#answer2 {
-  margin-left: 0px;
-  margin-bottom: 2px;
-  border: none;
-}
-#answer3 {
-  margin-left: 0px;
-  margin-bottom: 2px;
-  border: none;
-}
-#answer4 {
-  margin-left: 0px;
-  border: none;
-}
+/* Style the question result */
 #result {
   display: none;
   margin-top: 20px;
@@ -166,43 +115,8 @@ label {
   color: grey;
 } 
 
-button:hover {
-  filter: brightness(120%);
 
-}
-
-#alldone {
-  display: none;
-}
-
-#finalscore {
-  display: none;
-}
-
-#getinitials {
-  display: none;
-}
-
-#alldone {
-  display: none;
-}
-
-#finalscore {
-  display: none;
-}
-
-#getinitials {
-  display: none;
-}
-
-#scoretitle {
-  display: none;
-}
-
-#scorebuttons {
-  display: none;
-}
-
+/* Initialize hidden items */
 #goback {
   display: inline-block;
 }
@@ -214,3 +128,38 @@ button:hover {
 #submitinitials {
   display: inline-block;
 }
+
+#mainpage{
+  display: block;
+}
+
+#qapage{
+  display: none;
+  margin-left: 70px;
+}
+
+#initialspage{
+  display: none;
+  margin-left: 70px;
+}
+
+#highscorespage{
+  display: none;
+  margin-left: 70px;
+}
+
+#result{
+  margin-left: 70px;
+}
+
+.directions{
+  display: block;
+  text-align: center;
+}
+
+#scoretitle{
+ text-align: left;
+}
+
+
+

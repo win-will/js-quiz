@@ -7,44 +7,56 @@
     <link rel="stylesheet" href="./assets/css/style.css" />
     <title>JavaScript Coding Quiz</title>
   </head>
-  <header class="top-header">
-    <div class="highscores">
-        <a href="#" id="viewhighscores">View Highscores</a>
-    </div>
-    <div class="timer-box">
-        <p><span class="timer" id="time">Time: 0</span></p>
-    </div>
+  <header>
+  <!-- <div class="highscores"></div>
+    <div class="timer-box"></div> -->
   </header>
   <body>
-      <div class="card">
+    <div class="row">
+      <div class="column1">
+        <a href="#" id="viewhighscores">View Highscores</a>
+      </div>
+    <div class="column2" id="card">
+    <!-- <div class="card" id="card"> -->
+      <section id="mainpage">
         <h1 id="title">Coding Quiz Challenge</h1>
         <span class="directions" id="instructions">Try to answer the following code-related questions within the time limit.  
-            Keep in mind that incorrect answers will penalize your score/time by ten seconds!
+          Keep in mind that incorrect answers will penalize your score/time by ten seconds!
         </span>
+        <button id="startButton">Start Quiz</button>
+      </section>
+      <section id="qapage">
         <h2 id="questions"></h2>
         <div id="answers">
-            <button id="answer1"></button>
-            <button id="answer2"></button>
-            <button id="answer3"></button>
-            <button id="answer4"></button>
+          <button id="answer1"></button>
+          <button id="answer2"></button>
+          <button id="answer3"></button>
+          <button id="answer4"></button>
         </div>
+      </section>
+      <section id="initialspage">
         <h2 id="alldone">All done!</h2>
         <span id="finalscore"></span>
         <form id="getinitials">
           <label for="initials">Enter initials: </label>
           <input type="text" id="initials" name="initials">
           <button name="submitinitials" id="submitinitials">Submit</button>
-          <!-- <input type="submit" value="Submit"> -->
         </form>
-        <h2 id="scoretitle">Highscores</h2>
+      </section>
+      <section id="highscorespage">
+        <h1 id="scoretitle">Highscores</h1>
         <ul id="scorelist"></ul>
         <div id="scorebuttons">
           <button id="goback">Go Back</button>
-          <button id="clear">Clear Scores</button>
+          <button id="clear">Clear Highscores</button>
         </div>
-        <span id="result"></span>
-        <button id="startButton">Start Quiz</button>
-      </div>
+      </section>
+      <span id="result"></span>
+    </div>
+    <div class="column3">
+      <span class="timer" id="time">Time: 0</span>
+    </div>
+  </div>
     <script src="./assets/js/script.js"></script>
   </body>
 </html>
